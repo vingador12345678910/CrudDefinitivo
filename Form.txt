@@ -5,6 +5,7 @@ const Form=({onEdit})=>{
     const ref=useRef();
     return(
         <View  style={styles.container}>
+            
             <Text>Cadastro</Text>
             <TextInput style={styles.input} placeholder="Nome"></TextInput>
             <TextInput style={styles.input} placeholder="Email"></TextInput>

@@ -1,48 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { ToastAndroid } from 'react-native';
+import axios from 'axios';
 import Form from './components/forms';
 import Grid from './components/Grid';
-import { useEffect,useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 
+const App = () => {
+  const [users, setUsers] = useState([]);
+  const [onEdit, setOnEdit] = useState(null);
 
-
-export default function App() {
-  const[users,setUsers]=useState([])
-  const[onEdit,setOnEdit]=useState(null)
-
-  const getUsers=async()=>{
-    try{
-      const res=await axios.get("http://localhost:8800/");
-      setUsers(res.data.sort((a,b)=>(a.nome>b.nome ? 1:-1)));
-
-    }catch(error){
-      toast.error(error);
+  const getUsers = async () => {
+    try {
+      const res = await axios.get('http://localhost:8800');
+      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
+    } catch (error) {
+      ToastAndroid.show(error, ToastAndroid.LONG);
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getUsers();
-  },[setUsers]);
-  
-  
-  
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>CRUD</Text>
-      <Grid users={users}/>
-      
-      <StatusBar style="auto" />
+      <Text style={styles.title}>USUÁRIOS</Text>
+      <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
+      <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
 });
+
+export default App;
+
