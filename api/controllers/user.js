@@ -12,7 +12,7 @@ export const getUsers=(_,res)=>{
 };
 
 export const addUser=(req,res)=>{
-    const q= "INSERT INTO usuarios(`nome`, `email`, `fone`, `data_nasc`) VALUES(?)";
+    const q= "INSERT INTO usuarios(`nome`, `email`, `fone`, `data_nasc`) VALUES ?";
     const values=[
         req.body.nome,
         req.body.email,

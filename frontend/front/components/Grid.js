@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ToastAndroid } from 'react-native';
+import axios from 'axios';
 
 const Grid = ({ users, setUsers, setOnEdit }) => {
   const handleEdit = (item) => {
@@ -10,11 +11,14 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
 
   const handleDelete = async (id) => {
     try {
+      
       await axios.delete("http://localhost:8800/" + id);
       const newArray = users.filter((user) => user.id !== id);
       setUsers(newArray);
+      alert("Excluiu")
       ToastAndroid.show('Usuário excluído com sucesso!', ToastAndroid.SHORT);
     } catch (error) {
+      alert(error)
       ToastAndroid.show('Erro ao excluir usuário', ToastAndroid.SHORT);
     }
     setOnEdit(null);
@@ -28,6 +32,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
             <Text style={styles.cell}>{item.nome}</Text>
             <Text style={styles.cell}>{item.email}</Text>
             {item.fone && <Text style={styles.cell}>{item.fone}</Text>}
+            <Text style={styles.cell}>{item.data_nasc}</Text>
           </View>
           <TouchableOpacity onPress={() => handleEdit(item)}>
             <MaterialIcons name="edit" size={24} color="blue" />

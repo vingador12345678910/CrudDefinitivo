@@ -25,28 +25,34 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     const email = emailRef.current.value;
     const fone = foneRef.current.value;
     const data_nasc= dataRef.current.value;
+    
 
     if (!nome || !email || !fone || !data_nasc) {
       return ToastAndroid.show('Preencha todos os campos!', ToastAndroid.SHORT);
+      alert("Insira todos os campos")
     }
 
     try {
       if (onEdit) {
+        
         await axios.put(`http://localhost:8800/${onEdit.id}`, {
           nome,
           email,
           fone,
           data_nasc,
         });
-        ToastAndroid.show('Usuário atualizado com sucesso!', ToastAndroid.SHORT);
+        
       } else {
+       
+
         await axios.post('http://localhost:8800', {
           nome,
           email,
           fone,
           data_nasc,
+         
         });
-        ToastAndroid.show('Usuário criado com sucesso!', ToastAndroid.SHORT);
+        alert(data_nasc)
       }
       nomeRef.current.clear();
       emailRef.current.clear();
@@ -56,7 +62,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
       setOnEdit(null);
       getUsers();
     } catch (error) {
-      ToastAndroid.show('Erro ao salvar usuário', ToastAndroid.SHORT);
+      alert(error)
     }
   };
 
@@ -131,5 +137,4 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 });
-
 
