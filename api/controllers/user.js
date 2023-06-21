@@ -24,8 +24,10 @@ export const addUser=(req,res)=>{
 
         if(err) return res.json(err);
 
-        return res.status(200).json("Usuario Cadastrado")
+        return res.status(200).json("Usuario Cadastrado");
+        
 
+      
 
 
     })

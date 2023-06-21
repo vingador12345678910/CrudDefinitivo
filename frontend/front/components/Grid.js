@@ -16,10 +16,10 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
       const newArray = users.filter((user) => user.id !== id);
       setUsers(newArray);
       alert("Excluiu")
-      ToastAndroid.show('Usuário excluído com sucesso!', ToastAndroid.SHORT);
+      
     } catch (error) {
       alert(error)
-      ToastAndroid.show('Erro ao excluir usuário', ToastAndroid.SHORT);
+      
     }
     setOnEdit(null);
   };

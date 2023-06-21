@@ -9,6 +9,8 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
   const foneRef = useRef(null);
   const dataRef = useRef(null);
 
+  
+
   useEffect(() => {
     if (onEdit) {
       const { nome, email, fone, data_nasc } = onEdit;
@@ -25,11 +27,12 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     const email = emailRef.current.value;
     const fone = foneRef.current.value;
     const data_nasc= dataRef.current.value;
+
+    
     
 
-    if (!nome || !email || !fone || !data_nasc) {
-      return ToastAndroid.show('Preencha todos os campos!', ToastAndroid.SHORT);
-      alert("Insira todos os campos")
+    if (nome==null || email==null || fone==null || data_nasc==null) {
+      return alert("Insira todos os campos")
     }
 
     try {
@@ -44,15 +47,17 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         
       } else {
        
+       
 
-        await axios.post('http://localhost:8800', {
+        await axios.post(`http://localhost:8800/`, {
+         
           nome,
           email,
           fone,
           data_nasc,
          
         });
-        alert(data_nasc)
+        alert("Cadastrado")
       }
       nomeRef.current.clear();
       emailRef.current.clear();
@@ -74,15 +79,15 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
       </View>
       <View style={styles.inputArea}>
         <Text>E-mail</Text>
-        <TextInput ref={emailRef} style={styles.input} />
+        <TextInput ref={emailRef} style={styles.input}  />
       </View>
       <View style={styles.inputArea}>
         <Text>Telefone</Text>
-        <TextInput ref={foneRef} style={styles.input} />
+        <TextInput ref={foneRef} style={styles.input}  />
       </View>
       <View style={styles.inputArea}>
         <Text>Data de Nascimento</Text>
-        <TextInput ref={dataRef} style={styles.input}  />
+        <TextInput ref={dataRef} style={styles.input}   />
       </View>
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>SALVAR</Text>
